@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  expense-tracker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: expense-tracker:latest
+    container_name: expense-tracker
+    ports:
+      - "8080:80"
+    restart: unless-stopped
