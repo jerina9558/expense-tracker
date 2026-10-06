@@ -1,5 +1,13 @@
+```powershell
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
+
+$resultFile = "C:\Users\Asus\Downloads\expense-tracker (1)\expense-tracker\boot-result.txt"
+
+# Remove previous result
+if (Test-Path $resultFile) {
+    Remove-Item $resultFile -Force
+}
 
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Boot Confirmation"
@@ -25,9 +33,11 @@ $button.Size = New-Object System.Drawing.Size(90,30)
 
 $button.Add_Click({
     if ($textBox.Text.Trim().ToLower() -eq "continue") {
+        Set-Content -Path $resultFile -Value "continue"
         $form.Tag = "continue"
     }
     else {
+        Set-Content -Path $resultFile -Value "exit"
         $form.Tag = "exit"
     }
 
@@ -52,3 +62,4 @@ else {
     Write-Host "exit"
     exit 1
 }
+```
